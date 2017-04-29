@@ -39,6 +39,10 @@ pip install twython
 ```
 
 ### Instalar requests[security]
+``` 
+pip install 'requests[security]' 
 ```
-pip install 'requests[security]'
+### Instalar sqlite3
+```
+udo apt-get install sqlite3 libsqlite3-dev
 ```

@@ -10,8 +10,8 @@
 #   Este archivo define el rol de un servicio. Su función general es porporcionar en un objeto JSON
 #   información detallada acerca de una pelicula o una serie en particular haciendo uso del API proporcionada
 #   por IMDb ('https://www.imdb.com/').
-#   
-#   
+#
+#
 #
 #                                        sv_information.py
 #           +-----------------------+-------------------------+------------------------+
@@ -33,10 +33,11 @@ app = Flask (__name__)
 
 @app.route("/api/v1/information")
 def get_information():
+	print 'hola get_information()'
 	# Método que obtiene la información de IMDB acerca de un título en particular
 	# Se lee el parámetro 't' que contiene el título de la película o serie que se va a consultar
 	title = request.args.get("t")
-	# Se verifica si el parámetro no esta vacío 
+	# Se verifica si el parámetro no esta vacío
 	if title is not None:
 		# Se conecta con el servicio de IMDb a través de su API
 		url_omdb = urllib.urlopen("http://www.omdbapi.com/?t="+title+"&plot=full&r=json")

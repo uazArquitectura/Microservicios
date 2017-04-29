@@ -1,5 +1,4 @@
-# Arquitectura-Micro-Servicios
-Repositorio de la tarea 2
+# Arquitectura de Microservicios (Repositorio de la tarea 2)
 
 ## Sistema de Procesamiento de Comentarios
 
@@ -7,11 +6,12 @@ Antes de ejecutar el código asegurate de instalar los prerrequisitos del sistem
 > sudo pip install -r requirements.txt  
 
 Los paquetes que se instalarán son los siguientes:
-
-Paquete | Versión | Descripción
---------|---------|------------
-Flask   | 0.10.1  | Micro framework de desarrollo
-requests| 2.12.4  | API interna utilizada en Flask para trabajar con las peticiones hacia el servidor
+Flask
+    Versión: 0.10.1
+    Descripción: Micro framework de desarrollo
+requests
+    Versión: 2.12.4
+    Descripción: API interna utilizada en Flask para trabajar con las peticiones hacia el servidor
 
 *__Nota__: También puedes instalar éstos prerrequisitos manualmente ejecutando los siguientes comandos*   
 > sudo pip install Flask==0.10.1  
@@ -25,3 +25,20 @@ Una vez instalados los prerrequisitos es momento de ejcutar el sistema siguiendo
 1. Abrir el navegador
 1. Acceder a la url del sistema:
    > http://localhost:8000/ - página de inicio!
+
+## Requisitos adicionales de la nueva versión del sistema
+
+### Instalar Curl
+```
+sudo apt-get install curl
+```
+
+### Instalar Twython
+```
+pip install twython
+```
+
+### Instalar requests[security]
+```
+pip install 'requests[security]'
+```

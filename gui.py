@@ -9,8 +9,8 @@
 #
 #   Este archivo define la interfaz gráfica del usuario. Recibe dos parámetros que posteriormente son enviados
 #   a servicios que la interfaz utiliza.
-#   
-#   
+#
+#
 #
 #                                             gui.py
 #           +-----------------------+-------------------------+------------------------+
@@ -35,6 +35,7 @@ def index():
 
 @app.route("/information", methods=['GET'])
 def sentiment_analysis():
+	print 'hola sentiment_analysis()'
 	# Se obtienen los parámetros que nos permitirán realizar la consulta
 	title = request.args.get("t")
 	url_omdb = urllib.urlopen("https://uaz.cloud.tyk.io/content/api/v1/information?t=" + title)
@@ -47,7 +48,7 @@ def sentiment_analysis():
 	json_result['omdb'] = omdb
 	# Se regresa el template de la interfaz gráfica predefinido así como los datos que deberá cargar
 	return render_template("status.html", result=json_result)
-	
+
 
 if __name__ == '__main__':
 	# Se define el puerto del sistema operativo que utilizará el Sistema de Procesamiento de Comentarios (SPC).

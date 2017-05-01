@@ -46,3 +46,8 @@ pip install 'requests[security]'
 ```
 udo apt-get install sqlite3 libsqlite3-dev
 ```
+
+### Instalar Flask-API
+```
+sudo pip install Flask-API
+```

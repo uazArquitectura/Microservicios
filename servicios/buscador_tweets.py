@@ -1,7 +1,5 @@
 from twython import Twython
-
 import sys
-
 import requests.packages.urllib3
 
 reload(sys)

@@ -8,10 +8,12 @@ class ConectorSqlite:
         self.cursor.execute(
             '''
             CREATE TABLE IF NOT EXISTS tweets(
-                screen_name TEXT,
-                tweet TEXT,
-                created_at DATETIME,
-                PRIMARY KEY (screen_name, created_at)
+                user_name TEXT,
+                movie_title TEXT,
+                tweet_body TEXT,
+                tweet_date DATETIME,
+                tweet_sentiment TEXT,
+                PRIMARY KEY (user_name, tweet_date)
             )
             ''')
         self.conn.commit()
@@ -23,8 +25,9 @@ class ConectorSqlite:
 
     def insert_tweet(self, tweet):
         self.open_connection()
-        self.cursor.execute('INSERT OR IGNORE INTO tweets VALUES (?, ?, ?)',
-                            tweet)
+        self.cursor.execute(
+            'INSERT OR IGNORE INTO tweets VALUES (?, ?, ?, ?, ?)',
+            tweet)
         self.conn.commit()
         self.conn.close()
 
@@ -37,6 +40,7 @@ class ConectorSqlite:
 
 
 testConector = ConectorSqlite()
-tweet = ('@porfirio', 'Hola mundo este es mi tweet', str(datetime.now().date()))
+tweet = ('@porfirio', 'Stranger Things', 'Hola mundo este es mi tweet',
+         str(datetime.now()), 'neg')
 testConector.insert_tweet(tweet)
 print testConector.get_tweets()

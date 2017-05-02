@@ -22,9 +22,13 @@ def obtener_tweets():
 
 
 if __name__ == '__main__':
+    print '--------------------------------------------------------------------'
+    print 'API Gateway'
+    print '--------------------------------------------------------------------'
     # Se define el puerto del sistema operativo que utilizará el servicio
     port = int(os.environ.get('PORT', 8085))
     # Se habilita la opción de 'debug' para visualizar los errores
     app.debug = True
-    # Se ejecuta el servicio definiendo el host '0.0.0.0' para que se pueda acceder desde cualquier IP
+    # Se ejecuta el servicio definiendo el host '0.0.0.0' para que se pueda
+    # acceder desde cualquier IP
     app.run(host='0.0.0.0', port=port)

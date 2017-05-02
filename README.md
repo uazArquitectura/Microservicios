@@ -5,17 +5,19 @@
 Antes de ejecutar el código asegurate de instalar los prerrequisitos del sistema ejecutando:
 > sudo pip install -r requirements.txt  
 
-Los paquetes que se instalarán son los siguientes:
-Flask
-    Versión: 0.10.1
-    Descripción: Micro framework de desarrollo
-requests
-    Versión: 2.12.4
-    Descripción: API interna utilizada en Flask para trabajar con las peticiones hacia el servidor
-
-*__Nota__: También puedes instalar éstos prerrequisitos manualmente ejecutando los siguientes comandos*   
+*__Nota__: También puedes instalar éstos prerrequisitos manualmente 
+ejecutando los siguientes comandos*   
 > sudo pip install Flask==0.10.1  
 > sudo pip install requests==2.12.4
+
+Los paquetes que se instalarán son los siguientes:
+- Flask
+    - Versión: 0.10.1 <br>
+    - Descripción: Micro framework de desarrollo
+- requests
+    - Versión: 2.12.4
+    - Descripción: API interna utilizada en Flask para trabajar con las 
+    peticiones hacia el servidor
 
 Una vez instalados los prerrequisitos es momento de ejcutar el sistema siguiendo los siguientes pasos:  
 1. Ejecutar el servicio:  
@@ -50,4 +52,9 @@ udo apt-get install sqlite3 libsqlite3-dev
 ### Instalar Flask-API
 ```
 sudo pip install Flask-API
+```
+
+## Correr el sistema
+```
+python servicios/main.py
 ```

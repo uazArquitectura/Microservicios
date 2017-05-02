@@ -55,11 +55,14 @@ def buscar_tweets():
         # Devuelve el mensaje de error y el código de la solicitud
         return error_response, status.HTTP_400_BAD_REQUEST
 
-
 if __name__ == '__main__':
+    print '--------------------------------------------------------------------'
+    print 'Servicio sv_gestor_tweets'
+    print '--------------------------------------------------------------------'
     # Se define el puerto del sistema operativo que utilizará el servicio
     port = int(os.environ.get('PORT', 8084))
     # Se habilita la opción de 'debug' para visualizar los errores
     app.debug = True
-    # Se ejecuta el servicio definiendo el host '0.0.0.0' para que se pueda acceder desde cualquier IP
+    # Se ejecuta el servicio definiendo el host '0.0.0.0' para que se pueda
+    # acceder desde cualquier IP
     app.run(host='0.0.0.0', port=port)

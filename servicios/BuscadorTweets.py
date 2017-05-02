@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from twython import Twython
 import sys
 import requests.packages.urllib3
@@ -29,7 +31,7 @@ class BuscadorTweets:
 
     def search_tweets(self, title):
         search_query = '@netflix' + self.to_hashtag(title)
-        result = self.twitter.search(q=search_query, count=100)
+        result = self.twitter.search(q=search_query, count=20)
         tweets = []
         for status in result["statuses"]:
             screen_name = status["user"]['screen_name']

@@ -35,7 +35,7 @@ app = FlaskAPI(__name__)
 def buscar_tweets():
     # Se verifica que el parámetro 'titulo' venga en la request
     if 'titulo' in request.args.keys():
-        # Obtiene el valore del parámetro
+        # Obtiene el valor del parámetro
         titulo = request.args['titulo']
         # Crea instancia del buscador de tweets
         buscador = BuscadorTweets()
@@ -43,8 +43,7 @@ def buscar_tweets():
         tweets = buscador.search_tweets(titulo)
         # Crea instancia del manejador de sqlite
         persistencia = PersistenciaTweets()
-        # for tweet in tweets:
-        #     persistencia.insert_tweet(tweet.values())
+        # Manda insertar los tweets en la base de datos
         persistencia.insert_tweets(tweet.values() for tweet in tweets)
         # devuelve un JSON con los tweets y el código de la solicitud
         return persistencia.get_tweets_by_hashtag(
@@ -55,6 +54,7 @@ def buscar_tweets():
         # Devuelve el mensaje de error y el código de la solicitud
         return error_response, status.HTTP_400_BAD_REQUEST
 
+
 if __name__ == '__main__':
     print '--------------------------------------------------------------------'
     print 'Servicio sv_gestor_tweets'
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     # Se define el puerto del sistema operativo que utilizará el servicio
     port = int(os.environ.get('PORT', 8084))
     # Se habilita la opción de 'debug' para visualizar los errores
-    app.debug = True
+    app.debug = False
     # Se ejecuta el servicio definiendo el host '0.0.0.0' para que se pueda
     # acceder desde cualquier IP
     app.run(host='0.0.0.0', port=port)

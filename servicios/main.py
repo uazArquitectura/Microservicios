@@ -1,4 +1,5 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
+# !/usr/bin/env python
 
 '''
 Este script realiza el levantamiento de todos los componentes del sistema.
@@ -16,6 +17,9 @@ def run_python_program(program_name):
 # Se levantan los microservicios
 print 'Levantando el microservicio sv_gestor_tweets.py'
 run_python_program('sv_gestor_tweets.py')
+print 'Levantando el microservicio sv_analizador_tweets.py'
+run_python_program('sv_analizador_tweets.py')
+
 
 print 'Levantando el api_gateway.py'
 # Se levanta el API Gateway

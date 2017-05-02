@@ -31,7 +31,7 @@ from PersistenciaTweets import PersistenciaTweets
 app = FlaskAPI(__name__)
 
 
-@app.route("/api/services/sv_gestor_tweets/search", methods=['GET'])
+@app.route("/api/tweet/search", methods=['GET'])
 def buscar_tweets():
     # Se verifica que el parámetro 'titulo' venga en la request
     if 'titulo' in request.args.keys():

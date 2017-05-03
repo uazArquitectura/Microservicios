@@ -84,19 +84,15 @@
             <ul>
                 <li>
                     <strong>Positive tweets:</strong>
-                    {{ result.omdb['Year'] }}
+                    {{ result.twitter['positivos'] }}
                 </li>
                 <li>
                     <strong>Negative tweets:</strong>
-                    {{ result.omdb['Writer'] }}
+                    {{ result.twitter['negativos'] }}
                 </li>
                 <li>
                     <strong>Neutral tweets:</strong>
-                    {{ result.omdb['Actors'] }}
-                </li>
-                <li>
-                    <strong>Total tweets:</strong>
-                    {{ result.omdb['Genre'] }}
+                    {{ result.twitter['neutros'] }}
                 </li>
             </ul>
         </div>

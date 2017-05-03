@@ -34,6 +34,8 @@ implementará como tal.
 
 import json
 import os
+import urllib
+
 import requests
 from flask import request, render_template
 from flask.ext.api import FlaskAPI
@@ -51,6 +53,46 @@ app = FlaskAPI(__name__)
 @app.route("/", methods=['GET'])
 def index():
     return render_template("index.html")
+
+
+@app.route("/information", methods=['GET'])
+def sentiment_analysis():
+    url = 'http://localhost:8087/information'
+    response_omdb = requests.get(url, request.args)
+    print 'OMDB Acabado'
+    if response_omdb.status_code == 400:
+        return response_omdb.json(), response_omdb.status_code
+    json_result = {}
+    json_result['omdb'] = response_omdb.json()
+
+    url = 'http://localhost:8084/api/tweet/search'
+    response_obtener = requests.get(url, request.args)
+
+    if response_obtener.status_code != 400:
+        response_obtener.json(), response_obtener.status_code
+    url = 'http://localhost:8086/api/tweet/analizar'
+    response_analizar = requests.post(url, {'tweets': json.dumps(
+        response_obtener.json())})
+
+
+
+    # url = 'http://localhost:8085/api/tweet/analizar'
+    # response_twitter = requests.post(url, request.args)
+    json_result['twitter'] = response_analizar.json()
+    print 'Twitter Acabado'
+
+    # # Se obtienen los parámetros que nos permitirán realizar la consulta
+    # title = request.args.get("t")
+    # url_omdb = urllib.urlopen(
+    #     "https://uaz.cloud.tyk.io/content/api/v1/information?t=" + title)
+    # # Se lee la respuesta de OMDB
+    # json_omdb = url_omdb.read()
+    # # Se convierte en un JSON la respuesta leída
+    # omdb = json.loads(json_omdb)
+    # # Se llena el JSON que se enviará a la interfaz gráfica para mostrársela al usuario
+
+    # Se regresa el template de la interfaz gráfica predefinido así como los datos que deberá cargar
+    return render_template("status.html", result=json_result)
 
 
 # Ruta que llama al microservicio sv_gestor_tweets para que busque los tweets
@@ -75,6 +117,7 @@ def analizar_tweets():
     url = 'http://localhost:8086/api/tweet/analizar'
     response_analizar = requests.post(url, {'tweets': json.dumps(
         response_obtener.json())})
+    # TODO Resolver problema de codificación JSON
     return response_analizar.json(), response_analizar.status_code
 
 

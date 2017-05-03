@@ -6,11 +6,18 @@ Este archivo contiene una simulación de la función del API Gateway que
 en el diagrama está contenido en el TYK, pero que para esta tarea no se
 implementará como tal.
 '''
+
 import json
 import os
 import requests
 from flask import request
 from flask.ext.api import FlaskAPI
+
+'''
+--------------------------------------------------------------------------------
+Definición del API Gateway
+--------------------------------------------------------------------------------
+'''
 
 app = FlaskAPI(__name__)
 
@@ -39,6 +46,12 @@ def analizar_tweets():
         response_obtener.json())})
     return response_analizar.json(), response_analizar.status_code
 
+
+'''
+--------------------------------------------------------------------------------
+Ejecución del API Gateway
+--------------------------------------------------------------------------------
+'''
 
 if __name__ == '__main__':
     print '--------------------------------------------------------------------'

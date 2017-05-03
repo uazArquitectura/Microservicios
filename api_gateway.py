@@ -1,6 +1,31 @@
 # -*- coding: utf-8 -*-
 # !/usr/bin/env python
 
+# -*- coding: utf-8 -*-
+# !/usr/bin/env python
+# ----------------------------------------------------------------------------------------------------------------
+# Archivo: gui.py
+# Tarea: 2 Arquitecturas Micro Servicios.
+# Autor(es): Perla Velasco & Yonathan Mtz.
+# Version: 1.2 Abril 2017
+# Descripción:
+#
+#   Este archivo define la interfaz gráfica del usuario. Recibe dos parámetros que posteriormente son enviados
+#   a servicios que la interfaz utiliza.
+#
+#
+#
+#                                             gui.py
+#           +-----------------------+-------------------------+------------------------+
+#           |  Nombre del elemento  |     Responsabilidad     |      Propiedades       |
+#           +-----------------------+-------------------------+------------------------+
+#           |                       |  - Porporcionar la in-  | - Consume servicios    |
+#           |          GUI          |    terfaz gráfica con la|   para proporcionar    |
+#           |                       |    que el usuario hará  |   información al       |
+#           |                       |    uso del sistema.     |   usuario.             |
+#           +-----------------------+-------------------------+------------------------+
+#
+
 '''
 Este archivo contiene una simulación de la función del API Gateway que
 en el diagrama está contenido en el TYK, pero que para esta tarea no se
@@ -10,7 +35,7 @@ implementará como tal.
 import json
 import os
 import requests
-from flask import request
+from flask import request, render_template
 from flask.ext.api import FlaskAPI
 
 '''
@@ -20,6 +45,12 @@ Definición del API Gateway
 '''
 
 app = FlaskAPI(__name__)
+
+
+# Ruta que renderiza la pantalla principal de la aplicación
+@app.route("/", methods=['GET'])
+def index():
+    return render_template("index.html")
 
 
 # Ruta que llama al microservicio sv_gestor_tweets para que busque los tweets

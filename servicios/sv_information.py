@@ -33,7 +33,7 @@ import urllib, json
 app = Flask(__name__)
 
 
-@app.route("/api/v1/information")
+@app.route("/information")
 def get_information():
     print 'hola get_information()'
     # Método que obtiene la información de IMDB acerca de un título en particular

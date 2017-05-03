@@ -59,7 +59,7 @@ def index():
 def sentiment_analysis():
     url = 'http://localhost:8087/information'
     response_omdb = requests.get(url, request.args)
-    print 'OMDB Acabado'
+
     if response_omdb.status_code == 400:
         return response_omdb.json(), response_omdb.status_code
     json_result = {}
@@ -68,29 +68,13 @@ def sentiment_analysis():
     url = 'http://localhost:8084/api/tweet/search'
     response_obtener = requests.get(url, request.args)
 
-    if response_obtener.status_code != 400:
-        response_obtener.json(), response_obtener.status_code
+    if response_obtener.status_code == 400:
+        return response_obtener.json(), response_obtener.status_code
     url = 'http://localhost:8086/api/tweet/analizar'
     response_analizar = requests.post(url, {'tweets': json.dumps(
         response_obtener.json())})
 
-
-
-    # url = 'http://localhost:8085/api/tweet/analizar'
-    # response_twitter = requests.post(url, request.args)
     json_result['twitter'] = response_analizar.json()
-    print 'Twitter Acabado'
-
-    # # Se obtienen los parámetros que nos permitirán realizar la consulta
-    # title = request.args.get("t")
-    # url_omdb = urllib.urlopen(
-    #     "https://uaz.cloud.tyk.io/content/api/v1/information?t=" + title)
-    # # Se lee la respuesta de OMDB
-    # json_omdb = url_omdb.read()
-    # # Se convierte en un JSON la respuesta leída
-    # omdb = json.loads(json_omdb)
-    # # Se llena el JSON que se enviará a la interfaz gráfica para mostrársela al usuario
-
     # Se regresa el template de la interfaz gráfica predefinido así como los datos que deberá cargar
     return render_template("status.html", result=json_result)
 

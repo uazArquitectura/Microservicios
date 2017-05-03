@@ -58,3 +58,18 @@ sudo pip install Flask-API
 ```
 python servicios/main.py
 ```
+
+## Búsquedas de ejemplo
+> 13 reasons why
+
+> stranger things
+
+> pretty little liars
+
+> the forger
+
+> gossip girl
+
+> how to get away with murder
+
+> orange is the new black

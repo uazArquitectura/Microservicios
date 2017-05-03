@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 # !/usr/bin/env python
+
 # ----------------------------------------------------------------------------------------------------------------
 # Archivo: sv_information.py
 # Tarea: 2 Arquitecturas Micro Servicios.
@@ -35,7 +36,6 @@ app = Flask(__name__)
 
 @app.route("/information")
 def get_information():
-    print request.args
     # Método que obtiene la información de IMDB acerca de un título en particular
     # Se lee el parámetro 't' que contiene el título de la película o serie que se va a consultar
     title = request.args.get("titulo")

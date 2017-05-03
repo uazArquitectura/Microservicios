@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 # !/usr/bin/env python
 
 '''
@@ -9,17 +9,40 @@ Archivo: sv_gestor_tweets.py
 Autor: Porfirio Ángel Díaz Sánchez
 --------------------------------------------------------------------------------
 Descripción general:
-Este archivo define el rol de un microservicio. Su función es
+Este archivo define el rol de un servicio. Su función es
 proporcionar un JSON con los comentarios recabados acerca de una película o
 serie de netflix por medio de la API de Twitter.
 --------------------------------------------------------------------------------
 Descripción de los elementos:
-- ConectorTwitter
+- Tweet
     Responsabilidad:
+        - Representar el modelo de un tweet en la base de datos.
     Propiedades:
-- ConectorSqlite
+        - Contiene como atributos a los campos de la base de datos:
+            - user_name
+            - tweet_hashtag
+            - tweet_body
+            - tweet_date
+- BuscadorTweets
     Responsabilidad:
+        - Obtener tweets y devolverlos como instancias de la clase Tweet.
     Propiedades:
+        - Hace peticiones a la API de twitter para obtener comentarios.
+        - Devuelve instancias de la clase Tweet a partir de los resultados.
+- PersistenciaTweets
+    Responsabilidad:
+        - Manejar la persistencia de los tweets.
+    Propiedades:
+        - Utiliza SQLite para la persistencia de tweets.
+        - Inserta y devuelve los tweets de la serie o película en cuestión.
+- Procesador de comentarios en Twitter
+    Responsabilidad:
+        - Este elemento es el servicio como tal, su responsabilidad es
+        devolver un JSON con los tweets realizados acerca de una serie o
+        película en particular.
+        - Utiliza la clase BuscadorTweets para obtener los tweets por medio
+        de la API de Twitter.
+        - Utiliza la clase PersistenciaTweets para persistir datos y obtenerlos.
 '''
 
 import os
@@ -58,7 +81,6 @@ class PersistenciaTweets:
         self.cursor = self.conn.cursor()
 
     def insert_tweet(self, tweet):
-        print tweet
         self.open_connection()
         self.cursor.execute(
             'INSERT OR IGNORE INTO tweets (tweet_body, tweet_date, '
@@ -158,7 +180,6 @@ def buscar_tweets():
         buscador = BuscadorTweets()
         # Busca y obtiene los tweets por medio del título
         tweets = buscador.search_tweets(titulo)
-        print '%%%%%%%%%%%%%%%%%% ' + str(len(tweets))
         # Crea instancia del manejador de sqlite
         persistencia = PersistenciaTweets()
         # Manda insertar los tweets en la base de datos

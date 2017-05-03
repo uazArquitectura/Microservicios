@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 # !/usr/bin/env python
 
-# -*- coding: utf-8 -*-
-# !/usr/bin/env python
 # ----------------------------------------------------------------------------------------------------------------
 # Archivo: gui.py
 # Tarea: 2 Arquitecturas Micro Servicios.
@@ -55,7 +53,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/api/movie/information", methods=['GET'])
+@app.route("/movie/information", methods=['GET'])
 def sentiment_analysis():
     url = 'http://localhost:8087/information'
     response_omdb = requests.get(url, request.args)

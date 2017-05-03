@@ -115,7 +115,6 @@ class Tweet:
 
 class BuscadorTweets:
     def __init__(self):
-        print '@@@@@@@@@@@@@@@@@@@@@@@@@@@: BuscadorTweets.__init__()'
         self.ConsumerKey = "jfij525430WHSqo46VCXiTA95"
         self.ConsumerSecret = "BfFZ6iSPTj7u699apBGY3Yu4RHMLOVR61QGASVenGVLdjh6lRb"
         self.AccessToken = "3290922366-kDNgrRkVLYnVQXDTtKbJqH1wCj0fkVKJy3PotjV"
@@ -124,16 +123,11 @@ class BuscadorTweets:
                                self.AccessToken, self.AccessTokenSecret)
 
     def to_hashtag(self, text):
-        print '@@@@@@@@@@@@@@@@@@@@@@@@@@@: BuscadorTweets.to_hashtag()'
         return '#' + ''.join(c for c in text.title() if not c.isspace())
 
     def search_tweets(self, title):
-        print '@@@@@@@@@@@@@@@@@@@@@@@@@@@: BuscadorTweets.search_tweeets()'
-        print '@@@@@@@@@@@@@@@@@@@@@@@@@@@: ' + title
         search_query = '@netflix ' + self.to_hashtag(title)
-        print '@@@@@@@@@@@@@@@@@@@@@@@@@@@: ' + search_query
         result = self.twitter.search(q=search_query, count=20)
-        print '@@@@@@@@@@@@@@@@@@@@@@@@@@@: ' + str(result)
         tweets = []
         for status in result["statuses"]:
             screen_name = status["user"]['screen_name']
@@ -156,7 +150,6 @@ app = FlaskAPI(__name__)
 
 @app.route("/api/tweet/search", methods=['GET'])
 def buscar_tweets():
-    print '@@@@@@@@@@@@@@@@@@@@@@@@@@@: sv_gestor_tweets.buscar_tweets()'
     # Se verifica que el parámetro 'titulo' venga en la request
     if 'titulo' in request.args.keys():
         # Obtiene el valor del parámetro

@@ -55,7 +55,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/information", methods=['GET'])
+@app.route("/api/movie/information", methods=['GET'])
 def sentiment_analysis():
     url = 'http://localhost:8087/information'
     response_omdb = requests.get(url, request.args)
@@ -92,16 +92,15 @@ def obtener_tweets():
 # Ruta que llama al microservicio sv_analizador_tweets para que analice los
 # tweets que son recibidos como parámetro y devuelva un JSON con el análisis
 # hecho.
-@app.route("/api/tweet/analizar", methods=['POST'])
+@app.route("/api/tweet/analizar", methods=['GET'])
 def analizar_tweets():
     url = 'http://localhost:8084/api/tweet/search'
-    response_obtener = requests.get(url, request.form)
+    response_obtener = requests.get(url, request.args)
     if response_obtener.status_code != 400:
         response_obtener.json(), response_obtener.status_code
     url = 'http://localhost:8086/api/tweet/analizar'
     response_analizar = requests.post(url, {'tweets': json.dumps(
         response_obtener.json())})
-    # TODO Resolver problema de codificación JSON
     return response_analizar.json(), response_analizar.status_code
 
 

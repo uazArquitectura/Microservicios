@@ -28,31 +28,23 @@
 #	Ejemplo de uso: Abrir navegador e ingresar a http://localhost:8084/api/v1/information?t=matrix
 #
 import os
-from flask import Flask, abort, render_template, request
-import urllib, json
+import requests
+from flask import Flask, abort, request
+from flask.ext.api import FlaskAPI, status
 
-app = Flask(__name__)
+app = FlaskAPI(__name__)
 
 
 @app.route("/information")
 def get_information():
-    # Método que obtiene la información de IMDB acerca de un título en particular
-    # Se lee el parámetro 't' que contiene el título de la película o serie que se va a consultar
-    title = request.args.get("titulo")
-    # Se verifica si el parámetro no esta vacío
-    if title is not None:
-        # Se conecta con el servicio de IMDb a través de su API
-        url_omdb = urllib.urlopen(
-            "http://www.omdbapi.com/?t=" + title + "&plot=full&r=json")
-        # Se lee la respuesta de IMDb
-        json_omdb = url_omdb.read()
-        # Se convierte en un JSON la respuesta recibida
-        omdb = json.loads(json_omdb)
-        # Se regresa el JSON de la respuesta
-        return json.dumps(omdb)
+    if 'titulo' in request.args.keys():
+        titulo = request.args['titulo']
+        url = 'http://www.omdbapi.com/?t=' + titulo + '&plot=full&r=json'
+        response_omdb = requests.get(url, request.args)
+        return response_omdb.json(), response_omdb.status_code
     else:
-        # Se devuelve un error 400 para indicar que el servicio no puede funcionar sin parámetro
-        abort(400)
+        error_response = {'message': 'Parámetros incompletos'}
+        return error_response, status.HTTP_400_BAD_REQUEST
 
 
 if __name__ == '__main__':
@@ -63,5 +55,6 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8087))
     # Se habilita la opción de 'debug' para visualizar los errores
     app.debug = True
-    # Se ejecuta el servicio definiendo el host '0.0.0.0' para que se pueda acceder desde cualquier IP
+    # Se ejecuta el servicio definiendo el host '0.0.0.0' para que se pueda
+    # acceder desde cualquier IP
     app.run(host='0.0.0.0', port=port)

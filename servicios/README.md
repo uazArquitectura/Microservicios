@@ -4,16 +4,16 @@ Procesamiento de Comentarios (SPC). Las especificaciones de todos los
 servicios se realizaron utilizando el blueprint de Apiary. Los servicios y 
 sus especificaciones aparecen a continuación.
 
+---
+<br>
+FORMAT: 1A
 
-## Procesador de Comentarios de IMDb
-  
-FORMAT: 1A  
-HOST: http://localhost:8085
+# Procesador de Comentarios de IMDb
 
-## Information Service [/api/tweet/analizar{?titulo}]
+Es un servicio que permite a los consumidores obtener información de series o
+películas de Netflix por medio de la API de OMDb. 
 
-+ Parameters
-    + titulo - Corresponde al título de la película o serie de Netflix.
+## Information Service [/api/movie/information{?titulo}]
 
 ### Get Information [GET]
 
@@ -46,8 +46,7 @@ HOST: http://localhost:8085
 + Response 400 (text)
 
         {
-            "title": "Bad Request"
-            "message": "The browser (or proxy) sent a request that this server could not understand."
+            "message": "Parámetros incompletos"
         }
 
 Ejemplo de uso: 
@@ -57,12 +56,15 @@ http://localhost:8085/api/movie/information?titulo=pretty little liars
 
 ---
 
-## Gestor de comentarios de Twitter
-  
-FORMAT: 1A  
-HOST: http://localhost:8085
+<br>
+FORMAT: 1A
 
-## Tweet Manager Service [/api/tweet/search{?titulo}]
+# Gestor de comentarios de Twitter
+
+Es un servicio que permite a los consumidores obtener los tweets más 
+recientes acerca de una serie o película de Netflix.
+
+## Gestor Tweets Service [/api/tweet/search{?titulo}]
 
 + Parameters
     + titulo - Corresponde al título de la película o serie de Netflix.
@@ -95,11 +97,48 @@ HOST: http://localhost:8085
 + Response 400 (text)
 
         {
-            "title": "Bad Request"
-            "message": "The browser (or proxy) sent a request that this server could not understand."
+            "message": "Parámetros incompletos"
         }
 
 Ejemplo de uso: 
 1. Ejecutar el sistema.
 2. Ingresar a la dirección: 
 http://localhost:8085/api/tweet/search?titulo=Narcos
+
+---
+
+<br>
+FORMAT: 1A
+
+# Analizador de Tweets
+
+Es un servicio que permite a los consumidores analizar un conjunto de tweets 
+recibidos en formato JSON para determinar su connotación positiva, negativa o
+neutra.
+
+## Analizador Tweets Service [/api/tweet/analizar]
+
++ Parameters
+    + tweets - Corresponde a los tweets que se analizarán, en formato JSON
+
+### Get Análisis [POST]
+
++ Response 200 (application/json)
+
+        {
+            "positivos": 1,
+            "neutros": 1,
+            "negativos": 0
+        }
+
++ Response 400 (text)
+
+        {
+            "message": "Parámetros incompletos"
+        }
+ 
+Ejemplo de uso: 
+1. Ejecutar el sistema.
+2. Envir una petición por POST a la dirección 
+http://localhost:8085/api/tweet/analizar enviando como parámetro un JSON con 
+los tweets a analizar

@@ -27,7 +27,6 @@ import os
 from flask import Flask, render_template, request
 import json
 import requests
-import webbrowser
 
 '''
 --------------------------------------------------------------------------------
@@ -85,4 +84,3 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8088))
     app.debug = True
     app.run(host='0.0.0.0', port=port)
-    webbrowser.open('http://localhost:8088', new=0)

@@ -15,6 +15,7 @@ funcionamiento del sistema.
 '''
 
 import os
+import webbrowser
 
 
 # Método que corre un programa de python abriendo una nueva terminal.
@@ -40,3 +41,5 @@ run_python_program('gui.py')
 
 # Se acabó la inicialización del sistema
 print 'Los componentes necesarios fueron levantados'
+
+webbrowser.open('http://localhost:8088', new=0)

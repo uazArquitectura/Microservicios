@@ -26,12 +26,6 @@ Descripción de los elementos:
         de una API.
 '''
 
-'''
-Este archivo contiene una simulación de la función del API Gateway que
-en el diagrama está contenido en el TYK, pero que para esta tarea no se
-implementará como tal.
-'''
-
 import os
 import requests
 from flask import request, render_template

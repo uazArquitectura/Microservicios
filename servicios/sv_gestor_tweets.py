@@ -40,6 +40,7 @@ Descripción de los elementos:
         - Este elemento es el servicio como tal, su responsabilidad es
         devolver un JSON con los tweets realizados acerca de una serie o
         película en particular.
+    Propiedades:
         - Utiliza la clase BuscadorTweets para obtener los tweets por medio
         de la API de Twitter.
         - Utiliza la clase PersistenciaTweets para persistir datos y obtenerlos.

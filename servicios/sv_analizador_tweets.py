@@ -2,12 +2,28 @@
 # !/usr/bin/env python
 
 '''
-Documentación del microservicio
+--------------------------------------------------------------------------------
+Tarea 2 - Arquitectura de Microservicios
+--------------------------------------------------------------------------------
+Archivo: sv_analizador_tweets.py
+Autor: Porfirio Ángel Díaz Sánchez
+--------------------------------------------------------------------------------
+Descripción general:
+Este archivo define el rol de un servicio. Su función es proporcionar un JSON
+con el resultado del análisis de sentimientos hecho a los tweets que se reciben
+como parámetro por medio de otro JSON.
+--------------------------------------------------------------------------------
+Descripción de los elementos:
+- Analizador de comentarios
+    Responsabilidad
+        - Analizar los tweets y determinar su connotación.
+    Propiedades:
+        - Utiliza la API de text-processing para el análisis de texto.
+        - Determina si un tweet es positivo, negativo o neutro.
 '''
 
 import commands
 import json
-
 import os
 from flask import request
 from flask.ext.api import FlaskAPI, status
@@ -32,7 +48,8 @@ def analizar_tweets():
             cmd = 'curl -d "text=' + tweet_body \
                   + '" http://text-processing.com/api/sentiment/'
             output = commands.getoutput(cmd)
-            if output.find('Could not resolve host') != -1: return 'ERROR ' + cmd
+            if output.find(
+                'Could not resolve host') != -1: return 'ERROR ' + cmd
             index_json = output.find('{')
             json_str = output[index_json:]
             if json_str == '':
@@ -61,10 +78,6 @@ if __name__ == '__main__':
     print '--------------------------------------------------------------------'
     print 'Servicio sv_analizador_tweets'
     print '--------------------------------------------------------------------'
-    # Se define el puerto del sistema operativo que utilizará el servicio
     port = int(os.environ.get('PORT', 8086))
-    # Se habilita la opción de 'debug' para visualizar los errores
     app.debug = True
-    # Se ejecuta el servicio definiendo el host '0.0.0.0' para que se pueda
-    # acceder desde cualquier IP
     app.run(host='0.0.0.0', port=port)

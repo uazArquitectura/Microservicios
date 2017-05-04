@@ -1,28 +1,30 @@
 # coding=utf-8
 # !/usr/bin/env python
 
-# ----------------------------------------------------------------------------------------------------------------
-# Archivo: gui.py
-# Tarea: 2 Arquitecturas Micro Servicios.
-# Autor(es): Perla Velasco & Yonathan Mtz.
-# Version: 1.2 Abril 2017
-# Descripción:
-#
-#   Este archivo define la interfaz gráfica del usuario. Recibe dos parámetros que posteriormente son enviados
-#   a servicios que la interfaz utiliza.
-#
-#
-#
-#                                             gui.py
-#           +-----------------------+-------------------------+------------------------+
-#           |  Nombre del elemento  |     Responsabilidad     |      Propiedades       |
-#           +-----------------------+-------------------------+------------------------+
-#           |                       |  - Porporcionar la in-  | - Consume servicios    |
-#           |          GUI          |    terfaz gráfica con la|   para proporcionar    |
-#           |                       |    que el usuario hará  |   información al       |
-#           |                       |    uso del sistema.     |   usuario.             |
-#           +-----------------------+-------------------------+------------------------+
-#
+'''
+--------------------------------------------------------------------------------
+Tarea 2 - Arquitectura de Microservicios
+--------------------------------------------------------------------------------
+Archivo: api_gateway.py
+Autor: Porfirio Ángel Díaz Sánchez
+--------------------------------------------------------------------------------
+Descripción general:
+Este archivo define el rol del API Gateway. Su función general es ser el
+intermediario entre el cliente y los microservicios para que de esta manera
+la comunicación sea únicamente entre estas dos entidades y aquí se gestionen
+los aspectos pertinentes al consumo de APIs.
+--------------------------------------------------------------------------------
+Descripción de los elementos:
+- API Gateway
+    Responsabilidad
+        - Ofrecer una interfaz para la comunicación con los diferentes
+        microservicios del sistema.
+    Propiedades:
+        - Se comunica con los microservicios sv_information, sv_gestor_tweets
+        y sv_information.
+        - Proporciona al cliente una interfaz para la comunicación por medio
+        de una API.
+'''
 
 '''
 Este archivo contiene una simulación de la función del API Gateway que
@@ -30,10 +32,7 @@ en el diagrama está contenido en el TYK, pero que para esta tarea no se
 implementará como tal.
 '''
 
-import json
 import os
-import urllib
-
 import requests
 from flask import request, render_template
 from flask.ext.api import FlaskAPI
@@ -87,10 +86,6 @@ if __name__ == '__main__':
     print '--------------------------------------------------------------------'
     print 'API Gateway'
     print '--------------------------------------------------------------------'
-    # Se define el puerto del sistema operativo que utilizará el servicio
     port = int(os.environ.get('PORT', 8085))
-    # Se habilita la opción de 'debug' para visualizar los errores
     app.debug = True
-    # Se ejecuta el servicio definiendo el host '0.0.0.0' para que se pueda
-    # acceder desde cualquier IP
     app.run(host='0.0.0.0', port=port)

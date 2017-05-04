@@ -43,10 +43,16 @@ películas de Netflix por medio de la API de OMDb.
             "Response": "Some text"
         }
 
-+ Response 400 (text)
++ Response 400 (application/json)
 
         {
             "message": "Parámetros incompletos"
+        }
+        
++ Response 404 (application/json)
+
+        {
+            "message": "Movie not found!"
         }
 
 Ejemplo de uso: 
@@ -94,10 +100,16 @@ recientes acerca de una serie o película de Netflix.
             }
         ]
 
-+ Response 400 (text)
++ Response 400 (application/json)
 
         {
             "message": "Parámetros incompletos"
+        }
+
++ Response 404 (application/json)
+        
+        {
+            "message": "No tweets found"
         }
 
 Ejemplo de uso: 
@@ -131,7 +143,7 @@ neutra.
             "negativos": 0
         }
 
-+ Response 400 (text)
++ Response 400 (application/json)
 
         {
             "message": "Parámetros incompletos"

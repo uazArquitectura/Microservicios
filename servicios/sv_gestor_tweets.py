@@ -186,8 +186,12 @@ def buscar_tweets():
         # Manda insertar los tweets en la base de datos
         persistencia.insert_tweets(tweet.values() for tweet in tweets)
         # devuelve un JSON con los tweets y el código de la solicitud
-        return persistencia.get_tweets_by_hashtag(
-            buscador.to_hashtag(titulo)), status.HTTP_200_OK
+        tweets_bd = persistencia.get_tweets_by_hashtag(
+            buscador.to_hashtag(titulo))
+        if len(tweets_bd) > 0:
+            return tweets_bd, status.HTTP_200_OK
+        else:
+            return {'message': 'No tweets found'}, status.HTTP_404_NOT_FOUND
     else:
         # Mensaje de error
         error_response = {'message': 'Parámetros incompletos'}

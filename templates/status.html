@@ -40,12 +40,14 @@
         <h1>Netflix Inc.</h1>
         <h3>Query Performed</h3>
         <br>
-        <a href="#data_analysis" class="btn btn-dark btn-lg">View result</a>
+        <a href="#results" class="btn btn-dark btn-lg">View result</a>
     </div>
 </header>
 
+<div id="results"></div>
+
 <!-- Page Content -->
-<div class="container">
+<div class="container {{ result.omdb['display'] }}">
 
     <!-- Portfolio Item Heading -->
     <div id="data_analysis" class="row">
@@ -73,26 +75,11 @@
                 <li><strong>Actors:</strong> {{ result.omdb['Actors'] }}.</li>
                 <li><strong>Genre:</strong> {{ result.omdb['Genre'] }}.</li>
                 <li><strong>Type:</strong> {{ result.omdb['Type'] }}.</li>
-                <li><strong>Total
-                    seasons:</strong> {{ result.omdb['totalSeasons'] }}.
+                <li><strong>Total seasons:</strong>
+                    {{ result.omdb['totalSeasons'] }}.
                 </li>
                 <li><strong>IMDB
                     Rating:</strong> {{ result.omdb['imdbRating'] }}.
-                </li>
-            </ul>
-            <h3>Twitter Analysis</h3>
-            <ul>
-                <li>
-                    <strong>Positive tweets:</strong>
-                    {{ result.twitter['positivos'] }}
-                </li>
-                <li>
-                    <strong>Negative tweets:</strong>
-                    {{ result.twitter['negativos'] }}
-                </li>
-                <li>
-                    <strong>Neutral tweets:</strong>
-                    {{ result.twitter['neutros'] }}
                 </li>
             </ul>
         </div>
@@ -102,7 +89,7 @@
 <!-- /.container -->
 
 <!-- About -->
-<section id="about" class="about">
+<section id="about" class="about {{ result.omdb['display'] }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -118,6 +105,32 @@
     </div>
     <!-- /.container -->
 </section>
+
+<div class="container {{ result.twitter['display'] }}">
+    <div class="row">
+        <h3 class="page-header">Twitter Analysis</h3>
+        <ul>
+            <li>
+                <strong>Positive tweets:</strong>
+                {{ result.twitter['positivos'] }}
+            </li>
+            <li>
+                <strong>Negative tweets:</strong>
+                {{ result.twitter['negativos'] }}
+            </li>
+            <li>
+                <strong>Neutral tweets:</strong>
+                {{ result.twitter['neutros'] }}
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container {{ result.no_results['display'] }}">
+    <div class="row">
+        <h1 class="page-header">No se encontraron resultados</h1>
+    </div>
+</div>
 
 <!-- Result -->
 <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->

@@ -51,22 +51,32 @@ def sentiment_analysis():
     # Solicitud al servicio sv_information, por medio del API Gateway.
     url = 'http://localhost:8085/api/movie/information'
     response_omdb = requests.get(url, request.args)
-    if response_omdb.status_code == 400:
-        return response_omdb.json(), response_omdb.status_code
-    json_result = {}
-    json_result['omdb'] = response_omdb.json()
+    json_result = {'omdb': {}, 'twitter': {}, 'no_results': {}}
+    if response_omdb.status_code == 200:
+        json_result['omdb'] = response_omdb.json()
+        json_result['omdb']['display'] = ''
+    else:
+        json_result['omdb']['display'] = 'hidden'
     # Solicitud al servicio sv_gestor_tweets, por medio del API Gateway.
     url = 'http://localhost:8085/api/tweet/search'
     response_obtener = requests.get(url, request.args)
-    if response_obtener.status_code == 400:
-        return response_obtener.json(), response_obtener.status_code
-    # Solicitud al servicio sv_analizador_tweets, por medio del API Gateway.
-    url = 'http://localhost:8085/api/tweet/analizar'
-    response_analizar = requests.post(url, {'tweets': json.dumps(
-        response_obtener.json())})
-    if response_analizar.status_code == 400:
-        return response_analizar.json(), response_analizar.status_code
-    json_result['twitter'] = response_analizar.json()
+    error_tweet = False
+    if response_obtener.status_code == 200:
+        # Solicitud al servicio sv_analizador_tweets, por medio del API Gateway.
+        url = 'http://localhost:8085/api/tweet/analizar'
+        response_analizar = requests.post(url, {'tweets': json.dumps(
+            response_obtener.json())})
+        if response_analizar.status_code == 200:
+            json_result['twitter'] = response_analizar.json()
+            json_result['twitter']['display'] = ''
+        else:
+            error_tweet = True
+    else:
+        error_tweet = True
+    json_result['no_results']['display'] = 'hidden'
+    if error_tweet or response_analizar.json()['totales'] == 0:
+        json_result['twitter']['display'] = 'hidden'
+        json_result['no_results']['display'] = ''
     # Se manda renderizar el template html con los datos que debe cargar
     return render_template("status.html", result=json_result)
 

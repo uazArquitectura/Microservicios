@@ -41,7 +41,8 @@ app = FlaskAPI(__name__)
 def analizar_tweets():
     if 'tweets' in request.form.keys():
         tweets = json.loads(request.form['tweets'])
-        sentimientos = {'positivos': 0, 'negativos': 0, 'neutros': 0}
+        sentimientos = {'positivos': 0, 'negativos': 0, 'neutros': 0,
+                        'totales': 0}
         for tweet in tweets:
             tweet_body = u''.join(tweet['tweet_body']).encode('utf-8')
             tweet_body = tweet_body.replace('"', '\\"')
@@ -49,7 +50,7 @@ def analizar_tweets():
                   + '" http://text-processing.com/api/sentiment/'
             output = commands.getoutput(cmd)
             if output.find(
-                'Could not resolve host') != -1: return 'ERROR ' + cmd
+                    'Could not resolve host') != -1: return 'ERROR ' + cmd
             index_json = output.find('{')
             json_str = output[index_json:]
             if json_str == '':
@@ -62,6 +63,8 @@ def analizar_tweets():
                 sentimientos['negativos'] += 1
             elif sentimiento == 'neutral':
                 sentimientos['neutros'] += 1
+        sentimientos['totales'] = sentimientos['positivos'] + sentimientos[
+            'negativos'] + sentimientos['neutros']
         return sentimientos, status.HTTP_200_OK
     else:
         error_response = {'message': 'Parámetros incompletos'}

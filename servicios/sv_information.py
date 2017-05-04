@@ -22,7 +22,7 @@ Descripción de los elementos:
         - Utiliza la API de IMDb.
         - Devuelve un JSON con datos de la serie o película en cuestión.
 '''
-
+import json
 import os
 import requests
 from flask import request
@@ -37,10 +37,13 @@ def get_information():
         titulo = request.args['titulo']
         url = 'http://www.omdbapi.com/?t=' + titulo + '&plot=full&r=json'
         response_omdb = requests.get(url, request.args)
+        if 'Error' in response_omdb.json():
+            error_response = {'message': response_omdb.json()['Error']}
+            return error_response, status.HTTP_404_NOT_FOUND
         return response_omdb.json(), response_omdb.status_code
     else:
         error_response = {'message': 'Parámetros incompletos'}
-        return error_response, status.HTTP_400_BAD_REQUEST
+        return  error_response, status.HTTP_400_BAD_REQUEST
 
 
 if __name__ == '__main__':

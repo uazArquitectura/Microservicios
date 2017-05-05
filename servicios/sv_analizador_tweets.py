@@ -14,7 +14,7 @@ con el resultado del análisis de sentimientos hecho a los tweets que se reciben
 como parámetro por medio de otro JSON.
 --------------------------------------------------------------------------------
 Descripción de los elementos:
-- Analizador de comentarios
+- Analizador de tweets
     Responsabilidad
         - Analizar los tweets y determinar su connotación.
     Propiedades:

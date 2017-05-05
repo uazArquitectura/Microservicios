@@ -35,7 +35,7 @@ Descripción de los elementos:
     Propiedades:
         - Utiliza SQLite para la persistencia de tweets.
         - Inserta y devuelve los tweets de la serie o película en cuestión.
-- Procesador de comentarios en Twitter
+- Gestor de comentarios de Twitter
     Responsabilidad:
         - Este elemento es el servicio como tal, su responsabilidad es
         devolver un JSON con los tweets realizados acerca de una serie o

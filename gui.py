@@ -52,11 +52,13 @@ def sentiment_analysis():
     url = 'http://localhost:8085/api/movie/information'
     response_omdb = requests.get(url, request.args)
     json_result = {'omdb': {}, 'twitter': {}, 'no_results': {}}
+    error_omdb = False
     if response_omdb.status_code == 200:
         json_result['omdb'] = response_omdb.json()
         json_result['omdb']['display'] = ''
     else:
         json_result['omdb']['display'] = 'hidden'
+        error_omdb = True
     # Solicitud al servicio sv_gestor_tweets, por medio del API Gateway.
     url = 'http://localhost:8085/api/tweet/search'
     response_obtener = requests.get(url, request.args)
@@ -73,9 +75,11 @@ def sentiment_analysis():
             error_tweet = True
     else:
         error_tweet = True
-    json_result['no_results']['display'] = 'hidden'
-    if error_tweet or response_analizar.json()['totales'] == 0:
+    error_tweet = error_tweet or response_analizar.json()['totales'] == 0
+    if error_tweet:
         json_result['twitter']['display'] = 'hidden'
+    json_result['no_results']['display'] = 'hidden'
+    if error_omdb and error_tweet:
         json_result['no_results']['display'] = ''
     # Se manda renderizar el template html con los datos que debe cargar
     return render_template("status.html", result=json_result)
